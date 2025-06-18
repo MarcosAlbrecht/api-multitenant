@@ -6,17 +6,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.codingworld.multitenant.bean.Acessos;
-import com.codingworld.multitenant.repo.AcessosRepository;
+import com.codingworld.multitenant.config.DataSourceConfig;
+import com.codingworld.multitenant.repo.DataSourceConfigRepository;
 
 
 @Service
 public class AcessosService {
     
     @Autowired
-    private AcessosRepository acessosRepository;
+    private DataSourceConfigRepository acessosRepository;
 
-    public List<Acessos> getAll() throws SQLException {
+    public List<DataSourceConfig> getAll() throws SQLException {
         return acessosRepository.findAll();
 
     }

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.codingworld.multitenant.bean.Acessos;
 import com.codingworld.multitenant.config.DataSourceConfig;
 import com.codingworld.multitenant.service.AcessosService;
 
@@ -21,8 +20,8 @@ public class AcessosController {
     private AcessosService acessosService;
     
     @RequestMapping(value = "/getacessos/all", method = RequestMethod.GET)
-    public ResponseEntity<List<Acessos>> getAll() throws SQLException {
-        List<Acessos> cities = acessosService.getAll();
+    public ResponseEntity<List<DataSourceConfig>> getAll() throws SQLException {
+        List<DataSourceConfig> cities = acessosService.getAll();
         return new ResponseEntity<>(cities, HttpStatus.OK);
     }
 }

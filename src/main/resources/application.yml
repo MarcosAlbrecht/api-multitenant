@@ -4,10 +4,10 @@ spring:
   application:
     name: MultiTenant
   datasource:
-    url: 'jdbc:firebirdsql:localhost/3050:D:\\Trabalho\\Controle Banco\\Biofinger\\Banco\\TICKET.FDB?encoding=UTF8'
-    username: 'SYSDBA'
-    password: 'masterkey'
-    driver-class-name: org.firebirdsql.jdbc.FBDriver    
+    url: "jdbc:firebirdsql:localhost/3050:/SEC/BANCO/WSACESSO/WSACESSO.FDB?encoding=UTF8"
+    username: "SYSDBA"
+    password: "masterkey"
+    driver-class-name: org.firebirdsql.jdbc.FBDriver
   jpa:
     properties:
       hibernate:

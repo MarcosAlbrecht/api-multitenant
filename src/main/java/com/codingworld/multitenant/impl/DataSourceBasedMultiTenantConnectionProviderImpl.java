@@ -1,15 +1,18 @@
 package com.codingworld.multitenant.impl;
 
-import com.codingworld.multitenant.config.TenantDataSource;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.PostConstruct;
+import javax.sql.DataSource;
+
 import org.hibernate.engine.jdbc.connections.spi.AbstractDataSourceBasedMultiTenantConnectionProviderImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
-import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.Map;
+import com.codingworld.multitenant.config.TenantDataSource;
+import com.codingworld.multitenant.exceptions.TenantNotFoundException;
 
 @Component
 public class DataSourceBasedMultiTenantConnectionProviderImpl extends AbstractDataSourceBasedMultiTenantConnectionProviderImpl {
@@ -36,11 +39,27 @@ public class DataSourceBasedMultiTenantConnectionProviderImpl extends AbstractDa
 
     @Override
     protected DataSource selectDataSource(String tenantIdentifier) {
-        if (!init) {
-            init = true;
-            TenantDataSource tenantDataSource = context.getBean(TenantDataSource.class);
-            map.putAll(tenantDataSource.getAll());
-        }
-        return map.get(tenantIdentifier) != null ? map.get(tenantIdentifier) : map.get(DEFAULT_TENANT_ID);
+    if (!init) {
+        init = true;
+        TenantDataSource tenantDataSource = context.getBean(TenantDataSource.class);
+        map.putAll(tenantDataSource.getAll());
     }
+
+    if (tenantIdentifier == null || tenantIdentifier.isEmpty()) {
+        throw new TenantNotFoundException();
+    }
+    DataSource dataSource;
+    if (tenantIdentifier.equals("public")) {
+        dataSource = map.get(DEFAULT_TENANT_ID);    
+    }else{
+        dataSource = map.get(tenantIdentifier);  
+    }
+    
+
+    if (dataSource == null && !tenantIdentifier.equals("public")) {
+        throw new TenantNotFoundException();
+    }
+
+    return dataSource;
+}
 }

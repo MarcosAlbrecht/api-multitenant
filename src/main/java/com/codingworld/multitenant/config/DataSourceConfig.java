@@ -1,10 +1,15 @@
 package com.codingworld.multitenant.config;
 
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-
-import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "ACESSOS")
@@ -15,67 +20,59 @@ public class DataSourceConfig implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String chave;
-    private String name;
-    private String url;
-    private String username;
-    private String password;
-    private String driverClassName;
-    private boolean initialize;
+    private String server;
+    private String database;
+    private String idn_bionotifica;
+    private String ativo;
 
-    public String getId() {
+
+    public String getChave() {
         return chave;
     }
 
-    public void setId(String chave) {
+
+    public void setChave(String chave) {
         this.chave = chave;
     }
 
-    public String getName() {
-        return name;
+
+    public String getServer() {
+        return server;
     }
 
-    public void setName(String name) {
-        this.name = name;
+
+    public void setServer(String server) {
+        this.server = server;
     }
 
-    public String getUrl() {
-        return url;
+
+    public String getDatabase() {
+        return database;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+
+    public void setDatabase(String database) {
+        this.database = database;
     }
 
-    public String getUsername() {
-        return username;
+
+    public String getIdn_bionotifica() {
+        return idn_bionotifica;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+
+    public void setIdn_bionotifica(String idn_bionotifica) {
+        this.idn_bionotifica = idn_bionotifica;
     }
 
-    public String getPassword() {
-        return password;
+
+    public String getAtivo() {
+        return ativo;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
-    public String getDriverClassName() {
-        return driverClassName;
-    }
-
-    public void setDriverClassName(String driverClassName) {
-        this.driverClassName = driverClassName;
-    }
-
-    public boolean isInitialize() {
-        return initialize;
-    }
-
-    public void setInitialize(boolean initialize) {
-        this.initialize = initialize;
+    public void setAtivo(String ativo) {
+        this.ativo = ativo;
     }
 
 
